@@ -1,4 +1,4 @@
-import { router, useLocalSearchParams } from 'expo-router';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
@@ -10,7 +10,6 @@ import { colors } from '../theme';
 const LENGTH = 4;
 
 export default function VerificationCode() {
-  const { phone } = useLocalSearchParams<{ phone?: string }>();
   const [digits, setDigits] = useState<string[]>(Array(LENGTH).fill(''));
   const inputs = useRef<(React.ComponentRef<typeof TextInput> | null)[]>([]);
 
@@ -24,7 +23,6 @@ export default function VerificationCode() {
     <AuthLayout title="Verification Code">
       <StatusBar style="light" />
       <Text style={styles.label}>Enter Verification Code</Text>
-      {phone ? <Text style={styles.hint}>Sent to +252 {phone}</Text> : null}
       <View style={styles.boxes}>
         {digits.map((digit, i) => (
           <TextInput
@@ -60,16 +58,17 @@ export default function VerificationCode() {
   );
 }
 
+// Label, input row and button share the same sizes/spacing as verification.tsx
+// so both screens line up exactly.
 const styles = StyleSheet.create({
-  label: { fontSize: 18, color: colors.text, marginLeft: 30, marginTop: 28 },
-  hint: { fontSize: 14, color: colors.muted, marginLeft: 30, marginTop: 4 },
-  boxes: { flexDirection: 'row', gap: 10, marginLeft: 30, marginTop: 14, marginBottom: 26 },
+  label: { fontSize: 18, color: colors.text, marginLeft: 10, marginBottom: 14 },
+  boxes: { flexDirection: 'row', gap: 12, height: 52, marginBottom: 24 },
   box: {
-    width: 48,
-    height: 48,
+    flex: 1,
+    minWidth: 0,
     borderWidth: 1.5,
     borderColor: colors.border,
-    borderRadius: 8,
+    borderRadius: 12,
     textAlign: 'center',
     fontSize: 22,
     color: colors.text,

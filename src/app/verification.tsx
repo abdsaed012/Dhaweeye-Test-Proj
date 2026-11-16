@@ -29,7 +29,7 @@ export default function Verification() {
       <PrimaryButton
         title="Continue"
         disabled={phone.length < 7}
-        onPress={() => router.push({ pathname: '/verification-code', params: { phone } })}
+        onPress={() => router.push('/verification-code')}
       />
     </AuthLayout>
   );
@@ -42,9 +42,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.inputBg,
     borderRadius: 12,
+    height: 52,
     paddingHorizontal: 12,
     marginBottom: 24,
   },
   prefix: { fontSize: 18, color: colors.muted, marginRight: 8 },
-  input: { flex: 1, fontSize: 18, paddingVertical: 14, color: colors.text },
+  input: { flex: 1, fontSize: 18, height: '100%', color: colors.text },
 });
