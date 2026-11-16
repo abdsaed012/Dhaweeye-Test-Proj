@@ -1,39 +1,37 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-import { colors } from '../theme';
+const LOGO_GREEN = '#009345';
+// The mark is 267x337 px.
+const ASPECT = 267 / 337;
 
 type Props = {
-  /** Font size of the wordmark; the "D" badge scales with it. */
+  /** Font size of the wordmark; the "D" mark scales with it. */
   size?: number;
   /** 'light' is white on green (splash), 'dark' is green on white (home). */
   variant?: 'light' | 'dark';
 };
 
 export function Logo({ size = 36, variant = 'light' }: Props) {
-  const fg = variant === 'light' ? colors.white : colors.green;
-  const bg = variant === 'light' ? colors.green : colors.white;
-  const badge = size * 1.15;
-
+  const height = size * 1.25;
   return (
     <View style={styles.row} accessibilityRole="header" accessibilityLabel="Dhaweeye">
-      <View
+      <Image
+        source={
+          variant === 'light'
+            ? require('../../assets/logo-white.png')
+            : require('../../assets/logo-green.png')
+        }
+        style={{ height, width: height * ASPECT, marginRight: size * 0.06 }}
+      />
+      <Text
         style={{
-          width: badge * 0.85,
-          height: badge,
-          backgroundColor: fg,
-          borderTopLeftRadius: badge * 0.12,
-          borderBottomLeftRadius: badge * 0.12,
-          borderTopRightRadius: badge * 0.5,
-          borderBottomRightRadius: badge * 0.5,
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginRight: size * 0.08,
+          color: variant === 'light' ? '#FFFFFF' : LOGO_GREEN,
+          fontSize: size,
+          fontWeight: '700',
         }}
       >
-        <MaterialCommunityIcons name="thumb-up" size={badge * 0.5} color={bg} />
-      </View>
-      <Text style={{ color: fg, fontSize: size, fontWeight: '700' }}>haweeye</Text>
+        haweeye
+      </Text>
     </View>
   );
 }

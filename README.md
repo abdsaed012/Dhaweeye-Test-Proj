@@ -11,7 +11,7 @@ npm install
 npx expo start
 ```
 
-Scan the QR code with Expo Go (iOS / Android). `npx expo start --web` also works, but the map is a placeholder in the browser.
+Scan the QR code with Expo Go (iOS / Android), or press `w` to open it in the browser (the map there is an embedded OpenStreetMap).
 
 ## Structure
 

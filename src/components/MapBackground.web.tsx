@@ -1,17 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-// react-native-maps has no web implementation, so the browser gets a placeholder.
+// react-native-maps has no web implementation, so the browser gets an
+// embedded OpenStreetMap instead.
 export const PICKUP = { latitude: 2.0469, longitude: 45.3182 };
 
-export function MapBackground(_props: { driver?: { latitude: number; longitude: number } }) {
+const SPAN = 0.03;
+
+export function MapBackground({ driver }: { driver?: { latitude: number; longitude: number } }) {
+  const pin = driver ?? PICKUP;
+  const bbox = [
+    PICKUP.longitude - SPAN,
+    PICKUP.latitude - SPAN,
+    PICKUP.longitude + SPAN,
+    PICKUP.latitude + SPAN,
+  ].join(',');
+  const src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${pin.latitude},${pin.longitude}`;
+
   return (
-    <View style={[StyleSheet.absoluteFill, styles.placeholder]}>
-      <Text style={styles.text}>Map (shown on iOS / Android)</Text>
+    <View style={StyleSheet.absoluteFill}>
+      <iframe title="Map" src={src} style={{ border: 0, width: '100%', height: '100%' }} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  placeholder: { backgroundColor: '#E8EDE4', alignItems: 'center', paddingTop: 160 },
-  text: { color: '#7A8576' },
-});
